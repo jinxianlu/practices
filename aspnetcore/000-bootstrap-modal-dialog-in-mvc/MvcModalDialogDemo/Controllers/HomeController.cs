@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MvcModalDialogDemo.Models;
+using MvcModalDialogDemo.Views.Home;
 
 namespace MvcModalDialogDemo.Controllers
 {
@@ -23,15 +24,24 @@ namespace MvcModalDialogDemo.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public IActionResult Modal()
         {
-            return View();
+            var model = new DemoViewModel
+            {
+                Username = "sam.zhang",
+                Password = "1234",
+                Email  = "sam.zhang@google.com"
+            };
+            return PartialView("_ModalDialog", model);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Modal(DemoViewModel input)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            _logger.LogWarning($"{input.Username} has signed in");
+            return RedirectToAction(nameof(Index));
         }
     }
 }
