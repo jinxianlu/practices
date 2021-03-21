@@ -5,7 +5,7 @@ namespace MvcModalDialogDemo.Views.Home
     public class DemoViewModel
     {
         [Required(ErrorMessage = "{0}必须填写")]
-        [Display(Name = "用户名", Prompt = "用户民")]
+        [Display(Name = "用户名", Prompt = "用户名")]
         public string Username { get; set; }
 
 
